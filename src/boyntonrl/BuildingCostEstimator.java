@@ -82,9 +82,5 @@ public class BuildingCostEstimator {
     }
 }
 
-//tessssst
 
-//test2
-
-//test3
 
