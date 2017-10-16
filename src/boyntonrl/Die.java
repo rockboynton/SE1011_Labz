@@ -34,4 +34,5 @@ public class Die {
     public void roll(){
         currentValue = (int) (Math.random() * numSides) + 1;
     }
+
 }
