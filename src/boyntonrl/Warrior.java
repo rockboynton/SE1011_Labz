@@ -24,24 +24,29 @@ public class Warrior {
         //TODO
     }
 
+    /**
+     * This method handles the attack logic for the Warrior
+     * @return the amount of damage an attack has caused, 0 if the attack misses
+     */
     public int attack(int type){
-        int attackPoints = 0;
-        if (type == 1){ // If user chose to attack with his Trusty Sword
-            d20.roll();
-            if (d20.getCurrentValue() >= 12){ //Attack hits if 20 sided die rolls 12 or greater
-                for (int diceRolls = 2; diceRolls > 0; diceRolls--){ // Rolls two 8-sided die to calculate attack points
+        int damage = 0;
+        d20.roll();
+
+        if (type == 1){ // if user chose to attack with his Trusty Sword
+            if (d20.getCurrentValue() >= 12){ // attack hits if 20 sided die rolls 12 or greater
+                for (int diceRolls = 2; diceRolls > 0; diceRolls--){ // rolls two 8-sided die to calculate damage
                     d8.roll();
-                    attackPoints += d8.getCurrentValue();
-                } // end attack point calculation for loop
+                    damage += d8.getCurrentValue();
+                } // end damage calculation for loop for Trusty Sword
             } // end if attack hits
-        } else if (type == 2) { // Else if user chose to attack with his Shield of Light
-            d20.roll();
-            if (d20.getCurrentValue() >= 8) { // Attack hits if 20-sided die rolls 8 or greater
-                d4.roll(); // Rolls one 4-sided die to calculate attack points
-                attackPoints += d4.getCurrentValue();
+        } else if (type == 2) { // else if user chose to attack with his Shield of Light
+            if (d20.getCurrentValue() >= 8) { // attack hits if 20-sided die rolls 8 or greater
+                d4.roll(); // rolls one 4-sided die to calculate attack points
+                damage += d4.getCurrentValue();
             } // end if attack hits
-        } // end else if user attacked with his Shield of Light
-        return attackPoints;
+        } // end if/else if statement
+
+        return damage;
     }
 
     /**
