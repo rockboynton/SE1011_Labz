@@ -1,32 +1,44 @@
 package boyntonrl;
 
+import java.util.*;
+
 public class Lab07 {
     public static void main(String[] args) {
         // TODO
-
+        Scanner in = new Scanner(System.in);
         // game loop
+        do {
+            // print the introduction and rules
+            intro();
+            // initialize game
+            Warrior warrior = new Warrior();
+            Mugwump mugwump = new Mugwump();
+            report(warrior, mugwump);
 
-        // print the introduction and rules
+            // while neither combatant has lost all of their hit points, battle!
+            while (warrior.getHitPoints() > 0 && mugwump.getHitPoints() > 0){
 
+            }
 
-        // initialize game
+            // declare the winner
 
-
-        // while neither combatant has lost all of their hit points, battle!
-
-        // declare the winner
-
-        // ask to play again
-
+            // ask to play again
+            System.out.println("Thank you for playing Battle Simulator 3000!");
+        } while (playAgain(in));
     }
     // Thank the user for playing your game
-}
 
     /**
      * This method displays the introduction to the game and gives a description of the rules.
      */
     private static void intro() {
-        // TODO
+        System.out.println("Welcome to Battle Simulator 3000! The world's more low tech battle simulator!");
+        System.out.println("You are a Valiant Warrior defending your humble village from an evil Mugwump! \n" +
+                "Fight bravely, or the citizens of your town will be the mugwump's dinner!");
+        System.out.println("You have your Trusty Sword, which deals decent damage, but can be tough to hit with " +
+                "sometimes. You also have your Shield of Light, which is not as strong as your sword, but is " +
+                "easier to deal damage with");
+        System.out.println("Let the epic battle begin!");
     }
 
     /**
@@ -48,7 +60,8 @@ public class Lab07 {
      * @param mugwump The Evil Mugwump!
      */
     private static void report(Warrior warrior, Mugwump mugwump) {
-        // TODO
+        System.out.println("Warrior HP: " + warrior.getHitPoints());
+        System.out.println("Mugwump HP: " + mugwump.getHitPoints());
     }
 
     /**
@@ -82,5 +95,14 @@ public class Lab07 {
      */
     private static boolean playAgain(Scanner in) {
         // TODO
+        boolean playAgain = false;
+        String input;
+
+        System.out.print("Would you like to play again? ");
+        input = in.next();
+        if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes")){
+            playAgain = true;
+        }
+        return playAgain;
     }
 }
