@@ -6,6 +6,7 @@ public class Lab07 {
     public static void main(String[] args) {
         // TODO
         Scanner in = new Scanner(System.in);
+        String winner;
         // game loop
         do {
             // print the introduction and rules
@@ -69,7 +70,16 @@ public class Lab07 {
      * @return 1 for sword, 2 for shield
      */
     private static int attackChoice(Scanner in) {
-        // TODO
+        //TODO
+        boolean validChoice = false;
+        while (!validChoice) {
+            System.out.print("How would you like to attack? \n" +
+                    "1. Your Trusty Sword\n" +
+                    "2. Your Shield of Light\n" +
+                    "Enter choice: ")
+            if (in.next())
+                return in.nextInt();
+        }
     }
 
     /**
