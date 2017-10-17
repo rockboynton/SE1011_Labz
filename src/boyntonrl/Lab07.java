@@ -77,7 +77,25 @@ public class Lab07 {
      * @return 1 if the warrior goes first, 2 if the mugwump goes first
      */
     private static int initiative() {
-        // TODO
+        Die d10 = new Die(10);
+        boolean tie = true;
+        int winner = 0;
+        int warriorRoll;
+        int mugwumpRoll;
+        while (tie){
+            d10.roll();
+            warriorRoll = d10.getCurrentValue();
+            d10.roll();
+            mugwumpRoll = d10.getCurrentValue();
+            if (warriorRoll > mugwumpRoll){
+                winner = 1;
+                tie = false;
+            } else if (mugwumpRoll > warriorRoll){
+                winner = 2;
+                tie = false;
+            }
+        }
+        return winner;
     }
 
     /**
