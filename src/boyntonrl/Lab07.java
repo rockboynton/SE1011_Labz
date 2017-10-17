@@ -1,3 +1,11 @@
+/*
+ * SE1011-011
+ * Fall 2017
+ * Assignment: Lab 7 - Lab07 Class with main
+ * Author: Rock Boynton
+ * Created: 10/19/2017
+ */
+
 package boyntonrl;
 
 import java.util.*;

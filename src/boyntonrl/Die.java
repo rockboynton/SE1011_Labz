@@ -1,3 +1,11 @@
+/*
+ * SE1011-011
+ * Fall 2017
+ * Assignment: Lab 7 - Die Class
+ * Author: Rock Boynton
+ * Created: 10/12/2017
+ */
+
 package boyntonrl;
 
 public class Die {
