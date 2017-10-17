@@ -19,9 +19,12 @@ public class Warrior {
         return hitPoints;
     }
 
-
+    /**
+     * Deducts damage from Mugwump's hit
+     * @param hp hit points/damage
+     */
     public void takeDamage(int hp){
-        //TODO
+        hitPoints -= hp;
     }
 
     /**

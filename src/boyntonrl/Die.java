@@ -6,7 +6,7 @@ public class Die {
 
     /**
      * Constructor. Sets the number of sides of the die object.
-     * @param numSides
+     * @param numSides number of sides of the die
      */
     public Die(int numSides){
         this.numSides = numSides;

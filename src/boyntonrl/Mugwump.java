@@ -11,8 +11,8 @@ public class Mugwump {
     // add methods here
 
     /**
-     * Constructor for the Evil Mugwump.
-     * Calls rollHitPoints() to calculate starting HP.
+     * Constructor for the Evil Mugwump
+     * Calls rollHitPoints() to calculate starting HP
      */
     public Mugwump(){
         hitPoints = rollHitPoints();
@@ -21,6 +21,14 @@ public class Mugwump {
 
     public int getHitPoints() {
         return hitPoints;
+    }
+
+    /**
+     * Deducts damage from Warrior's hit
+     * @param hp hit points/damage
+     */
+    public void takeDamage(int hp){
+        hitPoints -= hp;
     }
 
     /**
@@ -57,7 +65,7 @@ public class Mugwump {
     }
 
     /**
-     * Calculates Warrior's starting HP by rolling a 10-sided die six times.
+     * Calculates Warrior's starting HP by rolling a 10-sided die six times
      * @return hitPoints
      */
     private int rollHitPoints(){
