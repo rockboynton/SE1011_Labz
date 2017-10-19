@@ -8,18 +8,21 @@
 
 package boyntonrl;
 
+/**
+ * Represents the Evil Mugwump (computer player) from some generic tabletop game. The Warrior (human) will attempt
+ * to vanquish the evil scourge and save the kingdom.
+ * @author boyntonrl
+ */
 public class Mugwump {
-    private int hitPoints;
-    private int maxHitPoints;
+    private int hitPoints; // health of Mugwump
+    private int maxHitPoints; // starting health of Mugwump
     private Die d100 = new Die(100);
     private Die d20 = new Die(20);
     private Die d10 = new Die(10);
     private Die d6 = new Die(6);
 
-    // add methods here
-
     /**
-     * Constructor for the Evil Mugwump
+     * Constructor for the Mugwump
      * Calls rollHitPoints() to calculate starting HP
      */
     public Mugwump(){
@@ -74,11 +77,13 @@ public class Mugwump {
              } else {
                  System.out.println("The Mugwump swipes at you but you dodged it!");
              }
-        } else if (attackType == 3){
+        } else if (attackType == 3){ // else if ai chose to lick their wounds
             d6.roll();
-            if ((hitPoints + d6.getCurrentValue()) <= maxHitPoints){
+            if ((hitPoints + d6.getCurrentValue()) <= maxHitPoints){ // may not exceed initial health
                 regen = d6.getCurrentValue();
                 hitPoints += regen;
+            } else {
+                hitPoints = maxHitPoints;
             }
             System.out.println("The Mugwump cowered away and licked his wounds gaining " + regen +
                     " points of health!");
@@ -92,7 +97,7 @@ public class Mugwump {
      * @return hitPoints
      */
     private int rollHitPoints(){
-        for (int diceRolls = 10; diceRolls > 0; diceRolls--){
+        for (int diceRolls = 10; diceRolls > 0; diceRolls--){ // rolls ten 10-sided die to determine staring hp
             d10.roll();
             hitPoints += d10.getCurrentValue();
         }
@@ -116,4 +121,4 @@ public class Mugwump {
         }
         return attackType;
     }
-}
+} // end Mugwump class

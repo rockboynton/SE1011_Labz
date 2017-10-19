@@ -8,8 +8,12 @@
 
 package boyntonrl;
 
+/**
+ * Represents the Valiant Warrior (human player) from some generic tabletop game who attempts to
+ * vanquish the Evil Mugwump (computer player) and save the Kingdom.
+ */
 public class Warrior {
-    private int hitPoints;
+    private int hitPoints; // health of Warrior
     private Die d20 = new Die(20);
     private Die d10 = new Die(10);
     private Die d8 = new Die(8);
@@ -80,4 +84,4 @@ public class Warrior {
         }
         return hitPoints;
     }
-}
+} // end Warrior class

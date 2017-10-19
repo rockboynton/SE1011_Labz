@@ -10,6 +10,10 @@ package boyntonrl;
 
 import java.util.*;
 
+/**
+ * Driver for a generic tabletop game where a Valiant Warrior (human player) from some generic tabletop game
+ * attempts to vanquish the Evil Mugwump (computer player) and save the Kingdom.
+ */
 public class Lab07 {
     public static void main(String[] args) {
         // TODO
@@ -92,6 +96,7 @@ public class Lab07 {
      * @param mugwump The Evil Mugwump!
      */
     private static void report(Warrior warrior, Mugwump mugwump) {
+        System.out.println();
         System.out.println("Warrior HP: " + warrior.getHitPoints());
         System.out.println("Mugwump HP: " + mugwump.getHitPoints());
     }
@@ -107,14 +112,16 @@ public class Lab07 {
             System.out.print("How would you like to attack? \n" +
                     "1. Your Trusty Sword\n" +
                     "2. Your Shield of Light\n" +
-                    "Enter choice: ");
+                    "Enter choice (1 or 2): ");
             while (!in.hasNextInt()) {
                 System.out.print("Invalid input");
                 in.next();
             }
             choice = in.nextInt();
-            System.out.println(choice);
-        } while (!(in.nextInt() == 1 || in.nextInt() == 2));
+            if (!(choice == 1 || choice == 2)){
+                System.out.println("Invalid input");
+            }
+        } while (!(choice == 1 || choice == 2));
         return choice;
     }
 
@@ -153,7 +160,7 @@ public class Lab07 {
     private static void victory(String winner) {
         // TODO
         if (winner.equals("Warrior")) {
-            System.out.print("You won the battle! The citizens cheer and invite you back to town for a feast" +
+            System.out.println("You won the battle! The citizens cheer and invite you back to town for a feast" +
                              " as thanks for saving their lives (again)!");
         } else if (winner.equals("Mugwump")){
             System.out.println("You lost the battle. The citizens of your town were eaten by the evil Mugwump.");
@@ -173,6 +180,7 @@ public class Lab07 {
         input = in.next();
         if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes")){
             playAgain = true;
+            System.out.println();
         }
         return playAgain;
     }

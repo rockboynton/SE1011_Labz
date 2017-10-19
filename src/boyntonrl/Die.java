@@ -8,8 +8,13 @@
 
 package boyntonrl;
 
+/**
+ * Represents a die object that has a default 6 sides or a number of sides specified by the
+ * constructor when called
+ * @author boyntonrl
+ */
 public class Die {
-    private int numSides = 6;
+    private int numSides = 6; // default die has 6 sides
     private int currentValue = (int) (Math.random() * numSides) + 1;
 
     /**
@@ -17,9 +22,9 @@ public class Die {
      * @param numSides number of sides of the die
      */
     public Die(int numSides) {
-        if (!(numSides > 100)){
-            this.numSides = numSides;
-        }
+        if (!(numSides > 100)){ // if number of sides inputted is less than 100...
+            this.numSides = numSides; // number of sides set
+        } // else default numSides will stay 6
     }
 
     /**
@@ -44,4 +49,4 @@ public class Die {
     public void roll(){
         currentValue = (int) (Math.random() * numSides) + 1;
     }
-}
+} // end Die class
