@@ -9,15 +9,17 @@
 package boyntonrl;
 
 public class Die {
-    private int numSides;
+    private int numSides = 6;
     private int currentValue = (int) (Math.random() * numSides) + 1;
 
     /**
      * Constructor. Sets the number of sides of the die object.
      * @param numSides number of sides of the die
      */
-    public Die(int numSides){
-        this.numSides = numSides;
+    public Die(int numSides) {
+        if (!(numSides > 100)){
+            this.numSides = numSides;
+        }
     }
 
     /**

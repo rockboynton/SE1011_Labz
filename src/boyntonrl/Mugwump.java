@@ -45,6 +45,7 @@ public class Mugwump {
      */
     public int attack() {
         int damage = 0;
+        int regen = 0;
         // get attack type from ai
         int attackType = ai();
         // roll attack die
@@ -57,19 +58,33 @@ public class Mugwump {
                     d6.roll();
                     damage += d6.getCurrentValue();
                 } // end damage calculation for loop for Fangs of Death
-            } // end if attack hits
+                System.out.println("The Mugwump chomps down on you with his Fangs of Death dealing " + damage +
+                        " points of damage!");
+            } else {
+                System.out.println("The Mugwump snaps at you and misses!");
+            }
         } else if (attackType == 2){ // else if AI chose to attack with their Razor Sharp Claws
              if (d20.getCurrentValue() >= 12) { // attack hits if they roll 12 or greater
                  for (int diceRolls = 2; diceRolls > 0; diceRolls--) { // rolls two 6-sided dice to calculate damage
                      d6.roll();
                      damage += d6.getCurrentValue();
                  } // end damage calculation for loop for Razor Sharp Claws
-             } // end if attack hits
-        } // end if/else if statement
-
+                 System.out.println("The Mugwump scratches at you with his Razor Sharp Claws for " + damage +
+                         " points of damage!");
+             } else {
+                 System.out.println("The Mugwump swipes at you but you dodged it!");
+             }
+        } else if (attackType == 3){
+            d6.roll();
+            if ((hitPoints + d6.getCurrentValue()) <= maxHitPoints){
+                regen = d6.getCurrentValue();
+                hitPoints += regen;
+            }
+            System.out.println("The Mugwump cowered away and licked his wounds gaining " + regen +
+                    " points of health!");
+        }
         // return the damage
         return damage;
-
     }
 
     /**

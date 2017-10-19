@@ -14,28 +14,28 @@ public class Lab07 {
     public static void main(String[] args) {
         // TODO
         Scanner in = new Scanner(System.in);
-        String winner;
         // game loop
         do {
+            String winner = "none";
             // print the introduction and rules
             intro();
             // initialize game
             Warrior warrior = new Warrior();
             Mugwump mugwump = new Mugwump();
-            report(warrior, mugwump);
-
             // while neither combatant has lost all of their hit points, battle!
-            while (warrior.getHitPoints() > 0 && mugwump.getHitPoints() > 0){
-
+            while (winner.equals("none")){// TODO
+                report(warrior, mugwump);
+                System.out.println();
+                winner = battle(warrior, mugwump, in);
             }
-
             // declare the winner
-
+            victory(winner);
             // ask to play again
-            System.out.println("Thank you for playing Battle Simulator 3000!");
         } while (playAgain(in));
+        // Thank the user for playing your game
+        System.out.print("Thank you for playing Battle Simulator 3000!");
     }
-    // Thank the user for playing your game
+
 
     /**
      * This method displays the introduction to the game and gives a description of the rules.
@@ -45,7 +45,7 @@ public class Lab07 {
         System.out.println("You are a Valiant Warrior defending your humble village from an evil Mugwump! \n" +
                 "Fight bravely, or the citizens of your town will be the mugwump's dinner!");
         System.out.println("You have your Trusty Sword, which deals decent damage, but can be tough to hit with " +
-                "sometimes. You also have your Shield of Light, which is not as strong as your sword, but is " +
+                "sometimes.\nYou also have your Shield of Light, which is not as strong as your sword, but is " +
                 "easier to deal damage with");
         System.out.println("Let the epic battle begin!");
     }
@@ -58,9 +58,32 @@ public class Lab07 {
      */
     private static String battle(Warrior warrior, Mugwump mugwump, Scanner in) {
         // determine who attacks first
-
+        String winner = "none";
+        int player = initiative();
+        int choice;
+        int damage;
+        int half = 1; //count which half the round is (1 for first half, 2 for second half)
         // attack!
-
+        while (half <= 2 && winner.equals("none")) {
+            if (player == 1) {
+                choice = attackChoice(in);
+                damage = warrior.attack(choice);
+                mugwump.takeDamage(damage);
+                half++;
+                player = 2; // if warrior was the first player of the round, mugwump will be the next player
+            } else if (player == 2) {
+                damage = mugwump.attack();
+                warrior.takeDamage(damage);
+                half++;
+                player = 1; //if mugwump is the first player of the round, warrior will be the next player
+            }
+            if (warrior.getHitPoints() <= 0) {
+                winner = "Mugwump";
+            } else if (mugwump.getHitPoints() <= 0) {
+                winner = "Warrior";
+            }
+        }
+        return winner;
     }
 
     /**
@@ -79,15 +102,20 @@ public class Lab07 {
      */
     private static int attackChoice(Scanner in) {
         //TODO
-        boolean validChoice = false;
-        while (!validChoice) {
+        int choice;
+        do {
             System.out.print("How would you like to attack? \n" +
                     "1. Your Trusty Sword\n" +
                     "2. Your Shield of Light\n" +
-                    "Enter choice: ")
-            if (in.next())
-                return in.nextInt();
-        }
+                    "Enter choice: ");
+            while (!in.hasNextInt()) {
+                System.out.print("Invalid input");
+                in.next();
+            }
+            choice = in.nextInt();
+            System.out.println(choice);
+        } while (!(in.nextInt() == 1 || in.nextInt() == 2));
+        return choice;
     }
 
     /**
@@ -97,7 +125,7 @@ public class Lab07 {
     private static int initiative() {
         Die d10 = new Die(10);
         boolean tie = true;
-        int winner = 0;
+        int starter = 0;
         int warriorRoll;
         int mugwumpRoll;
         while (tie){
@@ -106,14 +134,16 @@ public class Lab07 {
             d10.roll();
             mugwumpRoll = d10.getCurrentValue();
             if (warriorRoll > mugwumpRoll){
-                winner = 1;
+                starter = 1;
+                System.out.println("The Warrior attacks first!");
                 tie = false;
             } else if (mugwumpRoll > warriorRoll){
-                winner = 2;
+                starter = 2;
+                System.out.println("The Mugwump attacks first!");
                 tie = false;
             }
         }
-        return winner;
+        return starter;
     }
 
     /**
@@ -122,6 +152,12 @@ public class Lab07 {
      */
     private static void victory(String winner) {
         // TODO
+        if (winner.equals("Warrior")) {
+            System.out.print("You won the battle! The citizens cheer and invite you back to town for a feast" +
+                             " as thanks for saving their lives (again)!");
+        } else if (winner.equals("Mugwump")){
+            System.out.println("You lost the battle. The citizens of your town were eaten by the evil Mugwump.");
+        }
     }
 
     /**
@@ -133,7 +169,6 @@ public class Lab07 {
         // TODO
         boolean playAgain = false;
         String input;
-
         System.out.print("Would you like to play again? ");
         input = in.next();
         if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes")){
