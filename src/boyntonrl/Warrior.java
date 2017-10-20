@@ -27,6 +27,10 @@ public class Warrior {
         hitPoints = rollHitPoints();
     }
 
+    /**
+     * Accessor for hitPoints
+     * @return hitPoints
+     */
     public int getHitPoints() {
         return hitPoints;
     }

@@ -38,7 +38,7 @@ public class Lab07 {
         } while (playAgain(in));
         // Thank the user for playing your game
         System.out.print("Thank you for playing Battle Simulator 3000!");
-    }
+    } // end main
 
 
     /**

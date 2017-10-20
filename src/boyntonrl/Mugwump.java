@@ -30,6 +30,10 @@ public class Mugwump {
         maxHitPoints = hitPoints;
     }
 
+    /**
+     * Accessor for hitPoints
+     * @return hitPoints
+     */
     public int getHitPoints() {
         return hitPoints;
     }
