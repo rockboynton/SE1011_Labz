@@ -50,7 +50,7 @@ public class Lab07 {
                 "Fight bravely, or the citizens of your town will be the mugwump's dinner!");
         System.out.println("You have your Trusty Sword, which deals decent damage, but can be tough to hit with " +
                 "sometimes.\nYou also have your Shield of Light, which is not as strong as your sword, but is " +
-                "easier to deal damage with");
+                "easier to deal damage with.");
         System.out.println("Let the epic battle begin!");
     }
 
@@ -106,20 +106,21 @@ public class Lab07 {
      * @return 1 for sword, 2 for shield
      */
     private static int attackChoice(Scanner in) {
-        //TODO
+        String options = "How would you like to attack? \n" +
+                "1. Your Trusty Sword\n" +
+                "2. Your Shield of Light\n" +
+                "Enter choice (1 or 2): ";
         int choice;
         do {
-            System.out.print("How would you like to attack? \n" +
-                    "1. Your Trusty Sword\n" +
-                    "2. Your Shield of Light\n" +
-                    "Enter choice (1 or 2): ");
-            while (!in.hasNextInt()) {
-                System.out.print("Invalid input");
+            System.out.print(options);
+            while (!in.hasNextInt()) { // while the input is not an int...
+                System.out.println("Invalid input"); //...input is invalid
+                System.out.print(options); // re-prompt
                 in.next();
             }
             choice = in.nextInt();
-            if (!(choice == 1 || choice == 2)){
-                System.out.println("Invalid input");
+            if (!(choice == 1 || choice == 2)){ // if input is not one of the choices...
+                System.out.println("Invalid input");// ...input is invalid so re-prompt
             }
         } while (!(choice == 1 || choice == 2));
         return choice;
