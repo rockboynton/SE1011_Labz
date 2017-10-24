@@ -6,7 +6,7 @@
  * Created: 9/21/2017
  */
 
-package boyntonrl;
+package boyntonrl.Lab3;
 
 import javax.swing.*;
 

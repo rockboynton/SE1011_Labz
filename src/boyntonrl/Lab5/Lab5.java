@@ -6,7 +6,7 @@
  * Created: 10/5/2017
  */
 
-package boyntonrl;
+package boyntonrl.Lab5;
 
 import java.util.*;
 

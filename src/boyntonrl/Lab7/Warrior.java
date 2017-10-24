@@ -6,7 +6,9 @@
  * Created: 10/12/2017
  */
 
-package boyntonrl;
+package boyntonrl.Lab7;
+
+import boyntonrl.Lab7.Die;
 
 /**
  * Represents the Valiant Warrior (human player) from some generic tabletop game who attempts to
