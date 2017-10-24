@@ -6,7 +6,7 @@
  * Created: 10/12/2017
  */
 
-package boyntonrl;
+package boyntonrl.Lab7;
 
 /**
  * Represents a die object that has a default 6 sides or a number of sides specified by the

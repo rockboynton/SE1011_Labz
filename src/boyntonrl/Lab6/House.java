@@ -1,4 +1,4 @@
-package boyntonrl;
+package boyntonrl.Lab6;
 
 import java.util.Scanner;
 /**

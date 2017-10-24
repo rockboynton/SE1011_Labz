@@ -6,7 +6,7 @@
  * Created: 10/12/2017
  */
 
-package boyntonrl;
+package boyntonrl.Lab6;
 
 /**
  * Class to estimate of the cost of building a house
