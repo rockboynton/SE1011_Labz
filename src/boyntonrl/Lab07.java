@@ -68,7 +68,7 @@ public class Lab07 {
         int damage;
         int half = 1; //count which half the round is (1 for first half, 2 for second half)
         // attack!
-        while (half <= 2 && winner.equals("none")) {
+        while (half <= 2 && winner.equals("none")) { //while 1st half or second half and winner not yet declared
             if (player == 1) {
                 choice = attackChoice(in);
                 damage = warrior.attack(choice);
@@ -86,7 +86,7 @@ public class Lab07 {
             } else if (mugwump.getHitPoints() <= 0) {
                 winner = "Warrior";
             }
-        }
+        } // end while loop for round
         return winner;
     }
 
