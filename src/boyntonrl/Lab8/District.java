@@ -1,7 +1,7 @@
 package boyntonrl.Lab8;
 
 /**
- * @author [TODO: put your name here]
+ * @author Rock Boynton
  *         <p/>
  *         Capture usage information for parking lots in a district.
  */
