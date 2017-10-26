@@ -13,9 +13,9 @@ public class ParkingLot {
     private boolean closed = false;
     private int numVehicles;
     private double percentFull = ((double) numVehicles/capacity) * 100;
-    private int time;
+    private int lastTime = 0;
     private int closingTime;
-    private int minutesClosed;
+    private int totalMinutesClosed;
 
 
     /**
@@ -34,6 +34,7 @@ public class ParkingLot {
      */
     public ParkingLot(int capacity) {
         this.capacity = capacity;
+        this.color = "test";
     }
 
     public String getColor() {
@@ -46,23 +47,20 @@ public class ParkingLot {
      * @param time Number of minutes since the lot opened.
      */
     public void markVehicleEntry(int time) {
-        numVehicles++;
-        newPercentFull();
-        addMinutes(time);
-        setClosingTime(time);
-        addMinutesClosed(time);
+        if (time > lastTime) {
+            numVehicles++;
+            openingOrClosing(time);
+            lastTime = time;
+        }
+//        addMinutesClosed(time);
     }
 
     private void setClosingTime(int time) {
-        if (isClosed()) {
-            closingTime = time;
-        }
+        closingTime = time;
     }
 
     private void addMinutesClosed(int time) {
-        if (!isClosed()) {
-            minutesClosed = time - closingTime;
-        }
+        totalMinutesClosed += (time - closingTime);
     }
 
     /**
@@ -73,10 +71,22 @@ public class ParkingLot {
      */
     public void markVehicleExit(int time) {
         numVehicles--;
-        newPercentFull();
-        addMinutes(time);
-        setClosingTime(time);
-        addMinutesClosed(time);
+        openingOrClosing(time);
+        lastTime = time;
+    }
+
+    private void openingOrClosing(int time) {
+        if (isClosed()) {
+            newPercentFull();
+            if (!isClosed()) {
+                addMinutesClosed(time);
+            }
+        } else if (!isClosed()) {
+            newPercentFull();
+            if (isClosed()) {
+                closingTime = time;
+            }
+        }
     }
 
     /**
@@ -92,13 +102,7 @@ public class ParkingLot {
      * @return true if lot is closed, false if lot is open.
      */
     public boolean isClosed() {
-        if (percentFull >= CLOSED_THRESHOLD) {
-            closed = true;
-            time = 0;
-        } else {
-            closed = false;
-            minutesClosed = 0;
-        }
+        closed = percentFull >= CLOSED_THRESHOLD;
         return closed;
     }
 
@@ -107,21 +111,17 @@ public class ParkingLot {
      * @return minutesClosed
      */
     public int closedMinutes() {
-        return minutesClosed;
+        return totalMinutesClosed;
     }
 
     /**
      * Prints the color of the lot and the percentage of the lot that is occupied.
      */
     public void displayStatus() {
-        System.out.printf("%s parking lot status: %.1f%%. \n", color, percentFull);
-    }
-
-    private void addMinutes(int time){
-        if (!isClosed()){
-            this.time = time;
+        if (!isClosed()) {
+            System.out.printf("%s parking lot status: %.1f%% \n", color, percentFull);
         } else {
-            minutesClosed += time;
+            System.out.println(color + " parking lot status: CLOSED");
         }
     }
 
