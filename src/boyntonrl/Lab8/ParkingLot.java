@@ -9,11 +9,14 @@ package boyntonrl.Lab8;
 public class ParkingLot {
     public static final double CLOSED_THRESHOLD = 80.0;
     private String color;
-    private int capacity;
+    private int capacity = 1;
     private boolean closed = false;
-    private int minutesClosed;
-    private double percentFull;
     private int numVehicles;
+    private double percentFull = ((double) numVehicles/capacity) * 100;
+    private int time;
+    private int closingTime;
+    private int minutesClosed;
+
 
     /**
      * Sets up a parking lot with a color and a max capacity.
@@ -43,16 +46,37 @@ public class ParkingLot {
      * @param time Number of minutes since the lot opened.
      */
     public void markVehicleEntry(int time) {
-        //TODO
+        numVehicles++;
+        newPercentFull();
+        addMinutes(time);
+        setClosingTime(time);
+        addMinutesClosed(time);
+    }
+
+    private void setClosingTime(int time) {
+        if (isClosed()) {
+            closingTime = time;
+        }
+    }
+
+    private void addMinutesClosed(int time) {
+        if (!isClosed()) {
+            minutesClosed = time - closingTime;
+        }
     }
 
     /**
      * Called when a vehicle exits the lot.
-     * //TODO what else?
+     * This method decrements from numVehicles, then calculates new percentFull, and lastly adds
+     * minutes to the total time the lot has been open.
      * @param time Number of minutes since the lot opened.
      */
     public void markVehicleExit(int time) {
-        //TODO
+        numVehicles--;
+        newPercentFull();
+        addMinutes(time);
+        setClosingTime(time);
+        addMinutesClosed(time);
     }
 
     /**
@@ -68,11 +92,18 @@ public class ParkingLot {
      * @return true if lot is closed, false if lot is open.
      */
     public boolean isClosed() {
+        if (percentFull >= CLOSED_THRESHOLD) {
+            closed = true;
+            time = 0;
+        } else {
+            closed = false;
+            minutesClosed = 0;
+        }
         return closed;
     }
 
     /**
-     * Accessor for the time since the lot has been closed. //TODO find out if this resets to zero after it reopens
+     * Accessor for the time since the lot has been closed. //TODO
      * @return minutesClosed
      */
     public int closedMinutes() {
@@ -83,7 +114,19 @@ public class ParkingLot {
      * Prints the color of the lot and the percentage of the lot that is occupied.
      */
     public void displayStatus() {
-        System.out.printf("%s parking lot status: %.1f%%.", color, percentFull);
+        System.out.printf("%s parking lot status: %.1f%%. \n", color, percentFull);
+    }
+
+    private void addMinutes(int time){
+        if (!isClosed()){
+            this.time = time;
+        } else {
+            minutesClosed += time;
+        }
+    }
+
+    private void newPercentFull() {
+        percentFull = ((double) numVehicles/capacity) * 100;
     }
 
 } // end ParkingLot class

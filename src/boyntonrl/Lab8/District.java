@@ -10,6 +10,8 @@ public class District {
     private ParkingLot lot2;
     private ParkingLot lot3;
     // TODO: add additional attributes as needed
+    int closedConcurrent;
+    int closedConcurrentBest;
 
 
     /**
@@ -50,8 +52,25 @@ public class District {
      *                  If lotNumber is out of range, the behavior is unspecified.
      */
     public void markVehicleEntry(int lotNumber, int time) {
-        // TODO: Complete this stub
+        if (lotNumber == 1) {
+            lot1.markVehicleEntry(time);
+        } else if (lotNumber == 2) {
+            lot2.markVehicleEntry(time);
+        } else if (lotNumber == 3) {
+            lot3.markVehicleEntry(time);
+        }
+        closedConcurrent(time);
+    }
 
+    private void closedConcurrent(int time) {
+        if (isClosed()) {
+            closedConcurrent += time;
+            if (closedConcurrent > closedConcurrentBest) {
+                closedConcurrentBest = closedConcurrent;
+            }
+        } else {
+            closedConcurrent = 0;
+        }
     }
 
     /**
@@ -64,8 +83,14 @@ public class District {
      *                  If lotNumber is out of range, the behavior is unspecified.
      */
     public void markVehicleExit(int lotNumber, int time) {
-        // TODO: Complete this stub
-
+        if (lotNumber == 1) {
+            lot1.markVehicleExit(time);
+        } else if (lotNumber == 2) {
+            lot2.markVehicleExit(time);
+        } else if (lotNumber == 3) {
+            lot3.markVehicleExit(time);
+        }
+        closedConcurrent(time);
     }
 
     /**
@@ -75,9 +100,11 @@ public class District {
      * @return whether all lots are closed in the district
      */
     public boolean isClosed() {
-        // TODO: Complete this stub
-
-        return false;
+        boolean closed = false;
+        if (lot1.isClosed() && lot2.isClosed() && lot3.isClosed()) {
+            closed = true;
+        }
+        return closed;
     }
 
     /**
@@ -86,9 +113,7 @@ public class District {
      * @return number of minutes all three lots were closed
      */
     public int closedMinutes() {
-        // TODO: Complete this stub
-
-        return 0;
+        return closedConcurrentBest;
     }
 }
 
