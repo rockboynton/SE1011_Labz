@@ -43,6 +43,7 @@ public class ParkingDriver {
             System.out.println(">>> Empty driveway should have no vehicles in it.");
         if (driveway.closedMinutes() != 395)
             System.out.println(">>> Wrong number of minutes while sleeping overnight.");
+        System.out.println(">>> " + driveway.closedMinutes());
     }
 
     /**
