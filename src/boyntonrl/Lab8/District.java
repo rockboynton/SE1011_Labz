@@ -1,3 +1,11 @@
+/*
+ * SE1011-011
+ * Fall 2017
+ * Assignment: Lab 8 - District class
+ * Author: Rock Boynton
+ * Created: 10/26/2017
+ */
+
 package boyntonrl.Lab8;
 
 /**
