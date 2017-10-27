@@ -51,7 +51,7 @@ public class ParkingLot {
                 closedMinutes += (time - lastTime);
             }
             numVehicles++;
-            newPercentFull();
+            percentFull = ((double) numVehicles/capacity) * 100;
             lastTime = time;
         }
 //        addMinutesClosed(time);
@@ -69,7 +69,7 @@ public class ParkingLot {
                 closedMinutes += (time - lastTime);
             }
             numVehicles--;
-            newPercentFull();
+            percentFull = ((double) numVehicles/capacity) * 100;
             lastTime = time;
         }
     }
@@ -108,9 +108,4 @@ public class ParkingLot {
             System.out.println(color + " parking lot status: CLOSED");
         }
     }
-
-    private void newPercentFull() {
-        percentFull = ((double) numVehicles/capacity) * 100;
-    }
-
 } // end ParkingLot class
