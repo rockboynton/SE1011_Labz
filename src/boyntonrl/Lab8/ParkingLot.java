@@ -14,7 +14,7 @@ public class ParkingLot {
     private double percentFull = ((double) numVehicles/capacity) * 100;
     private int lastTime = 0;
     private int closingTime;
-    private int totalMinutesClosed;
+    private int closedMinutes;
 
 
     /**
@@ -47,19 +47,14 @@ public class ParkingLot {
      */
     public void markVehicleEntry(int time) {
         if (time >= lastTime) {
+            if (isClosed()) {
+                closedMinutes += (time - lastTime);
+            }
             numVehicles++;
-            openingOrClosing(time);
+            newPercentFull();
             lastTime = time;
         }
 //        addMinutesClosed(time);
-    }
-
-    private void setClosingTime(int time) {
-        closingTime = time;
-    }
-
-    private void addMinutesClosed(int time) {
-        totalMinutesClosed += (time - closingTime);
     }
 
     /**
@@ -70,23 +65,12 @@ public class ParkingLot {
      */
     public void markVehicleExit(int time) {
         if (time >= lastTime) {
-            numVehicles--;
-            openingOrClosing(time);
-            lastTime = time;
-        }
-    }
-
-    private void openingOrClosing(int time) {
-        if (isClosed()) {
-            newPercentFull();
-            if (!isClosed()) {
-                addMinutesClosed(time);
-            }
-        } else if (!isClosed()) {
-            newPercentFull();
             if (isClosed()) {
-                closingTime = time;
+                closedMinutes += (time - lastTime);
             }
+            numVehicles--;
+            newPercentFull();
+            lastTime = time;
         }
     }
 
@@ -111,7 +95,7 @@ public class ParkingLot {
      * @return minutesClosed
      */
     public int closedMinutes() {
-        return totalMinutesClosed;
+        return closedMinutes;
     }
 
     /**
