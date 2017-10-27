@@ -10,7 +10,6 @@ public class ParkingLot {
     public static final double CLOSED_THRESHOLD = 80.0;
     private String color;
     private int capacity = 1;
-    private boolean closed = false;
     private int numVehicles;
     private double percentFull = ((double) numVehicles/capacity) * 100;
     private int lastTime = 0;
@@ -47,7 +46,7 @@ public class ParkingLot {
      * @param time Number of minutes since the lot opened.
      */
     public void markVehicleEntry(int time) {
-        if (time > lastTime) {
+        if (time >= lastTime) {
             numVehicles++;
             openingOrClosing(time);
             lastTime = time;
@@ -70,9 +69,11 @@ public class ParkingLot {
      * @param time Number of minutes since the lot opened.
      */
     public void markVehicleExit(int time) {
-        numVehicles--;
-        openingOrClosing(time);
-        lastTime = time;
+        if (time >= lastTime) {
+            numVehicles--;
+            openingOrClosing(time);
+            lastTime = time;
+        }
     }
 
     private void openingOrClosing(int time) {
@@ -102,12 +103,11 @@ public class ParkingLot {
      * @return true if lot is closed, false if lot is open.
      */
     public boolean isClosed() {
-        closed = percentFull >= CLOSED_THRESHOLD;
-        return closed;
+        return (percentFull >= CLOSED_THRESHOLD);
     }
 
     /**
-     * Accessor for the time since the lot has been closed. //TODO
+     * Accessor for the time since the lot has been closed.
      * @return minutesClosed
      */
     public int closedMinutes() {

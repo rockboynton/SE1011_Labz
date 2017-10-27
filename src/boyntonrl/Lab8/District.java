@@ -9,9 +9,8 @@ public class District {
     private ParkingLot lot1;
     private ParkingLot lot2;
     private ParkingLot lot3;
-    // TODO: add additional attributes as needed
-    int closedConcurrent;
-    int closedConcurrentBest;
+    private int closedMinutes;
+    private int lastTime = 0;
 
 
     /**
@@ -52,24 +51,19 @@ public class District {
      *                  If lotNumber is out of range, the behavior is unspecified.
      */
     public void markVehicleEntry(int lotNumber, int time) {
-        if (lotNumber == 1) {
-            lot1.markVehicleEntry(time);
-        } else if (lotNumber == 2) {
-            lot2.markVehicleEntry(time);
-        } else if (lotNumber == 3) {
-            lot3.markVehicleEntry(time);
-        }
-        closedConcurrent(time);
-    }
-
-    private void closedConcurrent(int time) {
-        if (isClosed()) {
-            closedConcurrent += time;
-            if (closedConcurrent > closedConcurrentBest) {
-                closedConcurrentBest = closedConcurrent;
+        if (time >= lastTime) {
+            if (isClosed()) {
+                closedMinutes += time - lastTime;
             }
-        } else {
-            closedConcurrent = 0;
+            if (lotNumber == 1) {
+                lot1.markVehicleEntry(time);
+            } else if (lotNumber == 2) {
+                lot2.markVehicleEntry(time);
+            } else if (lotNumber == 3) {
+                lot3.markVehicleEntry(time);
+            }
+            lastTime = time;
+//            closedMinutes(time);
         }
     }
 
@@ -83,14 +77,20 @@ public class District {
      *                  If lotNumber is out of range, the behavior is unspecified.
      */
     public void markVehicleExit(int lotNumber, int time) {
-        if (lotNumber == 1) {
-            lot1.markVehicleExit(time);
-        } else if (lotNumber == 2) {
-            lot2.markVehicleExit(time);
-        } else if (lotNumber == 3) {
-            lot3.markVehicleExit(time);
+        if (time >= lastTime) {
+            if (isClosed()) {
+                closedMinutes += (time - lastTime);
+            }
+            if (lotNumber == 1) {
+                lot1.markVehicleExit(time);
+            } else if (lotNumber == 2) {
+                lot2.markVehicleExit(time);
+            } else if (lotNumber == 3) {
+                lot3.markVehicleExit(time);
+            }
+            lastTime = time;
+//            closedMinutes(time);
         }
-        closedConcurrent(time);
     }
 
     /**
@@ -113,7 +113,7 @@ public class District {
      * @return number of minutes all three lots were closed
      */
     public int closedMinutes() {
-        return closedConcurrentBest;
+        return closedMinutes;
     }
 }
 
