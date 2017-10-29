@@ -21,7 +21,6 @@ public class ParkingLot {
     private int numVehicles;
     private double percentFull = ((double) numVehicles/capacity) * 100;
     private int lastTime = 0;
-    private int closingTime;
     private int closedMinutes;
 
 
