@@ -49,7 +49,8 @@ public class ParkingLot {
 
     /**
      * Called when a vehicle enters the lot.
-     * //TODO what else?
+     * Determines if the lot was closed when the vehicle enters and if so, updates the total closed minutes
+     * Adds another vehicle to the lot, calculates new percent, and sets previous time.
      * @param time Number of minutes since the lot opened.
      */
     public void markVehicleEntry(int time) {
@@ -66,8 +67,8 @@ public class ParkingLot {
 
     /**
      * Called when a vehicle exits the lot.
-     * This method decrements from numVehicles, then calculates new percentFull, and lastly adds
-     * minutes to the total time the lot has been open.
+     * Determines if the lot was closed when the vehicle exits and if so, updates the total closed minutes
+     * Adds another vehicle to the lot, calculates new percent, and sets previous time.
      * @param time Number of minutes since the lot opened.
      */
     public void markVehicleExit(int time) {
@@ -106,11 +107,16 @@ public class ParkingLot {
     }
 
     /**
-     * Prints the color of the lot and the percentage of the lot that is occupied.
+     * Prints the color of the lot and the percentage of the lot that is occupied if the lot is open, or
+     * "CLOSED" if the the lot is closed.
      */
     public void displayStatus() {
         if (!isClosed()) {
-            System.out.printf("%s parking lot status: %.1f%% \n", color, percentFull);
+            if ((percentFull % 1) == 0) {
+                System.out.printf("%s parking lot status: %.0f%% \n", color, percentFull);
+            } else {
+                System.out.printf("%s parking lot status: %.1f%% \n", color, percentFull);
+            }
         } else {
             System.out.println(color + " parking lot status: CLOSED");
         }

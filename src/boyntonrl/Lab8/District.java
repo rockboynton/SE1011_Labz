@@ -50,8 +50,7 @@ public class District {
     }
 
     /**
-     * Record a vehicle entering a given lot at a given time.
-     *
+     * Record a vehicle entering a given lot at a given time
      * @param lotNumber Number of lot, 1-3
      * @param time      Entry time in minutes since all lots were opened.
      *                  This calls ParkingLot.markVehicleEntry for the lot corresponding
@@ -77,7 +76,6 @@ public class District {
 
     /**
      * Record a vehicle exiting a given lot at a given time.
-     *
      * @param lotNumber Number of lot, 1-3
      * @param time      Entry time in minutes since all lots were opened.
      *                  This calls ParkingLot.markVehicleExit for the lot corresponding
