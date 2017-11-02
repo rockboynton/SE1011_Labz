@@ -56,8 +56,8 @@ public class District {
      * See ParkingLot.displayStatus for the format for each.
      */
     public String toString() {
-        String districtStatus = "";
-        for (int i = 0; i < (numLots - 1); i++){
+        String districtStatus = "District status:\n";
+        for (int i = 0; i < (numLots); i++){
             districtStatus += getLot(i).toString() + "\n";
         }
         return districtStatus;
@@ -74,9 +74,9 @@ public class District {
     public void markVehicleEntry(int lotNumber, int time) {
         if (time >= lastTime) {
             if (isClosed()) {
-                closedMinutes += time - lastTime;
+                closedMinutes += (time - lastTime);
             }
-            getLot(lotNumber).markVehicleEntry(time); //TODO is it index - 1?
+            getLot(lotNumber).markVehicleEntry(time);
             lastTime = time;
 //            closedMinutes(time);
         }
@@ -84,8 +84,8 @@ public class District {
 
     public int vehiclesParkedInDistrict(){
         int numVehicles = 0;
-        for (int i = 0; i < (numLots - 1); i++){
-            numVehicles++;
+        for (int i = 0; i < numLots; i++){
+            numVehicles += getLot(i).vehiclesInLot();
         }
         return numVehicles;
     }
@@ -103,7 +103,7 @@ public class District {
             if (isClosed()) {
                 closedMinutes += (time - lastTime);
             }
-            getLot(lotNumber).markVehicleEntry(time);
+            getLot(lotNumber).markVehicleExit(time);
             lastTime = time;
 //            closedMinutes(time);
         }

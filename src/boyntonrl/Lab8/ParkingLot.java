@@ -123,8 +123,14 @@ public class ParkingLot {
     }
 
     public String toString(){
-        DecimalFormat df = new DecimalFormat("##.##%");
+        DecimalFormat df = new DecimalFormat("##.#%");
         String pctFull = df.format((double) numVehicles/capacity);
-        return "Status for " + color + " parking lot: " + numVehicles + "(" + pctFull + ")";
+        String result;
+        if (!isClosed()) {
+            result = "Status for " + color + " parking lot: " + numVehicles + " vehicles (" + pctFull + ")";
+        } else {
+            result = "Status for " + color + " parking lot: " + numVehicles + " vehicles (CLOSED)";
+        }
+        return result;
     }
 } // end ParkingLot class
