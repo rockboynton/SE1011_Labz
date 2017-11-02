@@ -14,39 +14,53 @@ package boyntonrl.Lab8;
  *         Capture usage information for parking lots in a district.
  */
 public class District {
-    private ParkingLot lot1;
-    private ParkingLot lot2;
-    private ParkingLot lot3;
+    public static final int MAX_LOTS = 20;
+    private ParkingLot[] lots = new ParkingLot[MAX_LOTS];
     private int closedMinutes;
     private int lastTime = 0;
+    private int numLots;
 
 
     /**
-     * Set up a district with three parking lots.
-     *
-     * @param color1    Lot 1 identification color
-     * @param capacity1 Maximum number of vehicles for lot 1
-     * @param color2    Lot 2 identification color
-     * @param capacity2 Maximum number of vehicles for lot 2
-     * @param color3    Lot 3 identification color
-     * @param capacity3 Maximum number of vehicles for lot 3
+     * Set up a district with up to MAX_LOTS parking lots.
      */
-    public District(String color1, int capacity1,
-                    String color2, int capacity2,
-                    String color3, int capacity3) {
-        lot1 = new ParkingLot(color1, capacity1);
-        lot2 = new ParkingLot(color2, capacity2);
-        lot3 = new ParkingLot(color3, capacity3);
+    public District(){
+
     }
 
     /**
-     * Display status information for all three lots.
+     * Adds a new parking lot to the district.
+     * @param color
+     * @param capacity
+     * @return
+     */
+    public int add(String color, int capacity){
+        int newIndex   = numLots;
+        lots[newIndex] = new ParkingLot(color, capacity);
+        numLots++;
+        return newIndex;
+    }
+
+    /**
+     * Returns the lot at the given index.
+     * @param index index of lot to be returned.
+     *              Precondition that the index is valid.
+     * @return
+     */
+    public ParkingLot getLot(int index){
+        return lots[index];
+    }
+
+    /**
+     * Display status information for all lots.
      * See ParkingLot.displayStatus for the format for each.
      */
-    public void displayStatus() {
-        lot1.displayStatus();
-        lot2.displayStatus();
-        lot3.displayStatus();
+    public String toString() {
+        String districtStatus = "";
+        for (int i = 0; i < (numLots - 1); i++){
+            districtStatus += getLot(i).toString() + "\n";
+        }
+        return districtStatus;
     }
 
     /**
@@ -62,49 +76,49 @@ public class District {
             if (isClosed()) {
                 closedMinutes += time - lastTime;
             }
-            if (lotNumber == 1) {
-                lot1.markVehicleEntry(time);
-            } else if (lotNumber == 2) {
-                lot2.markVehicleEntry(time);
-            } else if (lotNumber == 3) {
-                lot3.markVehicleEntry(time);
-            }
+            getLot(lotNumber).markVehicleEntry(time); //TODO is it index - 1?
             lastTime = time;
 //            closedMinutes(time);
         }
     }
 
+    public int vehiclesParkedInDistrict(){
+        int numVehicles = 0;
+        for (int i = 0; i < (numLots - 1); i++){
+            numVehicles++;
+        }
+        return numVehicles;
+    }
+
     /**
      * Record a vehicle exiting a given lot at a given time.
-     * @param lotNumber Number of lot, 1-3
+     * @param lotNumber Number of lot, 0-MAX_LOTS
      * @param time      Entry time in minutes since all lots were opened.
      *                  This calls ParkingLot.markVehicleExit for the lot corresponding
-     *                  to lotNumber (1 -> lot1, 2 -> lot2, 3 -> lot3).
-     *                  If lotNumber is out of range, the behavior is unspecified.
+     *                  to lotNumber (0 -> lot at index 0, 1 -> lot at index 2, 2 -> lot at index 2, etc.).
+     *                  If lotNumber is out of range, the behavior is unspecified
      */
     public void markVehicleExit(int lotNumber, int time) {
         if (time >= lastTime) {
             if (isClosed()) {
                 closedMinutes += (time - lastTime);
             }
-            if (lotNumber == 1) {
-                lot1.markVehicleExit(time);
-            } else if (lotNumber == 2) {
-                lot2.markVehicleExit(time);
-            } else if (lotNumber == 3) {
-                lot3.markVehicleExit(time);
-            }
+            getLot(lotNumber).markVehicleEntry(time);
             lastTime = time;
 //            closedMinutes(time);
         }
     }
 
     /**
-     * Checks the status of all three lots in the district
+     * Checks the status of all lots in the district
      * @return true if and only if all lots are closed in the district
      */
     public boolean isClosed() {
-        return (lot1.isClosed() && lot2.isClosed() && lot3.isClosed());
+        int i = 0;
+        while ( (i < numLots) && (getLot(i).isClosed()) ){
+            i++;
+        }
+        return (i == numLots);
     }
 
     /**
