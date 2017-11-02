@@ -100,17 +100,11 @@ public class District {
     }
 
     /**
-     * Checks the status of all three lots in the district and
-     * returns true if they are all closed and false otherwise.
-     *
-     * @return whether all lots are closed in the district
+     * Checks the status of all three lots in the district
+     * @return true if and only if all lots are closed in the district
      */
     public boolean isClosed() {
-        boolean closed = false;
-        if (lot1.isClosed() && lot2.isClosed() && lot3.isClosed()) {
-            closed = true;
-        }
-        return closed;
+        return (lot1.isClosed() && lot2.isClosed() && lot3.isClosed());
     }
 
     /**

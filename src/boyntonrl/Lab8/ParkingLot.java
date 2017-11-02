@@ -8,6 +8,8 @@
 
 package boyntonrl.Lab8;
 
+import java.text.DecimalFormat;
+
 /**
  * @author Rock Boynton
  * Class to represent parking lots in a district
@@ -54,8 +56,8 @@ public class ParkingLot {
     public void markVehicleEntry(int time) {
         if (time >= lastTime) {
             if (isClosed()) {
-                closedMinutes += (time - lastTime);
-            }
+                closedMinutes += (time - lastTime); // if closed, adds time since last entry or exit to closedMinutes
+            }                                       // each calculation of these will add up to the entire closedMinutes
             numVehicles++;
             lastTime = time;
         }
@@ -71,8 +73,8 @@ public class ParkingLot {
     public void markVehicleExit(int time) {
         if (time >= lastTime) {
             if (isClosed()) {
-                closedMinutes += (time - lastTime);
-            }
+                closedMinutes += (time - lastTime); // if closed, adds time since last entry or exit to closedMinutes
+            }                                       // each calculation of these will add up to the entire closedMinutes
             numVehicles--;
             lastTime = time;
         }
@@ -118,5 +120,11 @@ public class ParkingLot {
         } else {
             System.out.println(color + " parking lot status: CLOSED");
         }
+    }
+
+    public String toString(){
+        DecimalFormat df = new DecimalFormat("##.##%");
+        String pctFull = df.format((double) numVehicles/capacity);
+        return "Status for " + color + " parking lot: " + numVehicles + "(" + pctFull + ")";
     }
 } // end ParkingLot class
