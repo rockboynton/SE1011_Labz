@@ -1,9 +1,9 @@
 /*
  * SE1011-011
  * Fall 2017
- * Assignment: Lab 8 - ParkingLot class
+ * Assignment: Lab 9 - ParkingLot class with Arrays
  * Author: Rock Boynton
- * Created: 10/26/2017
+ * Created: 11/2/2017
  */
 
 package boyntonrl.Lab8;
@@ -107,21 +107,11 @@ public class ParkingLot {
     private double percentFull() {
         return ((double) numVehicles/capacity) * 100;
     }
-    /**
-     * Displays the parking lot status with its color and
-     */
-    public void displayStatus() {
-        if (!isClosed()) {
-            if ((percentFull() % 1) == 0) {
-                System.out.printf("%s parking lot status: %.0f%% \n", color, percentFull());
-            } else {
-                System.out.printf("%s parking lot status: %.1f%% \n", color, percentFull());
-            }
-        } else {
-            System.out.println(color + " parking lot status: CLOSED");
-        }
-    }
 
+    /**
+     * Method to return ParkingLot object's status as a string.
+     * @return String of the status of the lot
+     */
     public String toString(){
         DecimalFormat df = new DecimalFormat("##.#%");
         String pctFull = df.format((double) numVehicles/capacity);

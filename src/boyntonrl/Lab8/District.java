@@ -1,20 +1,19 @@
 /*
  * SE1011-011
  * Fall 2017
- * Assignment: Lab 8 - District class
+ * Assignment: Lab 0 - District class with Arrays
  * Author: Rock Boynton
- * Created: 10/26/2017
+ * Created: 11/2/2017
  */
 
 package boyntonrl.Lab8;
 
 /**
  * @author Rock Boynton
- *         <p/>
  *         Capture usage information for parking lots in a district.
  */
 public class District {
-    public static final int MAX_LOTS = 20;
+    public static final int MAX_LOTS = 20; // Threshold of max possible number of lots in a district.
     private ParkingLot[] lots = new ParkingLot[MAX_LOTS];
     private int closedMinutes;
     private int lastTime = 0;
@@ -24,8 +23,7 @@ public class District {
     /**
      * Set up a district with up to MAX_LOTS parking lots.
      */
-    public District(){
-
+    public District(){ //TODO does there need to be anything here?
     }
 
     /**
