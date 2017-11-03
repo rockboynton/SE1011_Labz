@@ -1,7 +1,7 @@
 /*
  * SE1011-011
  * Fall 2017
- * Assignment: Lab 0 - District class with Arrays
+ * Assignment: Lab 9 - District class with Arrays
  * Author: Rock Boynton
  * Created: 11/2/2017
  */
@@ -21,16 +21,16 @@ public class District {
 
 
     /**
-     * Set up a district with up to MAX_LOTS parking lots.
+     * Set up a district to contain a maximum of MAX_LOTS lots.
      */
     public District(){ //TODO does there need to be anything here?
     }
 
     /**
      * Adds a new parking lot to the district.
-     * @param color
-     * @param capacity
-     * @return
+     * @param color color of the lot
+     * @param capacity capacity of the lot
+     * @return newIndex the new index for the lot //TODO why does this return an int
      */
     public int add(String color, int capacity){
         int newIndex   = numLots;
@@ -43,7 +43,7 @@ public class District {
      * Returns the lot at the given index.
      * @param index index of lot to be returned.
      *              Precondition that the index is valid.
-     * @return
+     * @return districtStatus the lot at the given index.
      */
     public ParkingLot getLot(int index){
         return lots[index];
@@ -51,7 +51,7 @@ public class District {
 
     /**
      * Display status information for all lots.
-     * See ParkingLot.displayStatus for the format for each.
+     * See ParkingLot.toString() for the format for each.
      */
     public String toString() {
         String districtStatus = "District status:\n";
@@ -63,11 +63,11 @@ public class District {
 
     /**
      * Record a vehicle entering a given lot at a given time
-     * @param lotNumber Number of lot, 1-3
+     * @param lotNumber Number of lot, 0-MAX_LOTS
      * @param time      Entry time in minutes since all lots were opened.
-     *                  This calls ParkingLot.markVehicleEntry for the lot corresponding
-     *                  to lotNumber (1 -> lot1, 2 -> lot2, 3 -> lot3).
-     *                  If lotNumber is out of range, the behavior is unspecified.
+     *                  This calls ParkingLot.markVehicleExit for the lot corresponding
+     *                  to lotNumber (0 -> lot at index 0, 1 -> lot at index 2, 2 -> lot at index 2, etc.).
+     *                  If lotNumber is out of range, the behavior is unspecified
      */
     public void markVehicleEntry(int lotNumber, int time) {
         if (time >= lastTime) {
