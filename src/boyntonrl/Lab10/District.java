@@ -15,7 +15,12 @@ import java.util.ArrayList;
  *         Capture usage information for parking lots in a district.
  */
 public class District {
-    public static final int MAX_LOTS = 20; // Threshold of max possible number of lots in a district.
+
+    /**
+     * Constant for the maximum number of lots that can be in a district
+     */
+    public static final int MAX_LOTS = 20;
+
     private ArrayList<ParkingLot> lots = new ArrayList<>();
     private int closedMinutes;
     private int lastTime = 0;
@@ -35,7 +40,7 @@ public class District {
      */
     public int add(String color, int capacity){
         lots.add(new ParkingLot(color, capacity));
-        return lots.size() - 1;
+        return lots.size() - 1; // index of added lot
     }
 
     /**
@@ -79,6 +84,10 @@ public class District {
         }
     }
 
+    /**
+     * Method to get the total number of vehicles that are parked in the district.
+     * @return numVehicles, the number of vehicles parked in the the district
+     */
     public int vehiclesParkedInDistrict(){
         int numVehicles = 0;
         for (int i = 0; i < lots.size(); i++){
