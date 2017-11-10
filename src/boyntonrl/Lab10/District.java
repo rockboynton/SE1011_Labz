@@ -6,7 +6,7 @@
  * Created: 11/9/2017
  */
 
-package boyntonrl.Lab10;
+package boyntonrl;
 
 import java.util.ArrayList;
 
